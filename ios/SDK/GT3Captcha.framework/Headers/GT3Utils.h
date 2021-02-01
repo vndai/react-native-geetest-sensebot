@@ -9,6 +9,14 @@
 #ifndef GTFramework_GTUtils_h
 #define GTFramework_GTUtils_h
 
+#if __has_feature(objc_generics)
+#define GT3_GENERICS(class, ...) class<__VA_ARGS__>
+#define GT3_GENERICS_TYPE(type) type
+#else
+#define GT3_GENERICS(class, ...) class
+#define GT3_GENERICS_TYPE(type) id
+#endif
+
 #import <UIKit/UIKit.h>
 
 
@@ -38,6 +46,21 @@ typedef NS_ENUM(NSInteger, GT3CaptchaState) {
     GT3CaptchaStateError
 };
 
+/**
+ * 验证集群节点
+ */
+typedef NS_ENUM(NSInteger, GT3CaptchaServiceNode) {
+    /** 中国服务集群*/
+    GT3CaptchaServiceNodeCN = 0,
+    /** 中国服务集群（支持 IPv6）*/
+    GT3CaptchaServiceNodeCN_IPv6,
+    /** 北美亚马逊云服务集群*/
+    GT3CaptchaServiceNodeNA,
+    /** 北美谷歌云服务集群*/
+    GT3CaptchaServiceNodeNG,
+    /** 默认服务集群*/
+    GT3CaptchaServiceNodeDefault = GT3CaptchaServiceNodeCN
+};
 
 /**
  * 验证模式枚举量
